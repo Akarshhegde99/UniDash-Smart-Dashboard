@@ -22,12 +22,12 @@ class UniDashApp {
             if (loader) loader.style.display = 'none';
         }, 1200);
 
-        // Core Systems (Safe to run before auth)
+        // Core Systems
         ThemeEngine.init();
         TimeCore.init();
 
-        // Initialize Auth
-        AuthManager.init();
+        // Directly initialize features (AUTH BYPASSED)
+        this.initFeatureManagers();
 
         this.setupNavigation();
         this.registerServiceWorker();

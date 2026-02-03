@@ -30,7 +30,8 @@
         <div class="loader"></div>
     </div>
 
-    <div id="auth-screen" class="auth-screen">
+    <!-- Authentication Hidden
+    <div id="auth-screen" class="auth-screen hidden">
         <div class="auth-card glass">
             <div class="auth-header">
                 <i class="fas fa-rocket"></i>
@@ -78,9 +79,9 @@
                 <p class="auth-toggle-text">Already have an account? <span id="switch-to-login">Login</span></p>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="app-container hidden" id="app-content">
+    <div class="app-container" id="app-content">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -154,10 +155,11 @@
                     </div>
                 </div>
                 <div class="top-bar-right">
-                    <button id="logout-btn-global" class="btn-secondary logout-hide"
-                        style="margin-right: 1rem; padding: 0.6rem 1rem;">
+                    <!-- Auth removed
+                    <button id="logout-btn-global" class="btn-secondary logout-hide" 
+                        style="display: none;">
                         <i class="fas fa-sign-out-alt"></i> Sign Out
-                    </button>
+                    </button> -->
                     <div class="clock-section">
                         <div id="clock" class="digital-clock">00:00:00</div>
                     </div>
@@ -400,13 +402,11 @@
                                 <button id="save-settings-profile" class="btn-primary">Update Profile</button>
                             </div>
                         </div>
+                        <!-- Session Management Hidden
                         <div class="settings-section card glass">
                             <h3>Session</h3>
-                            <div class="preference-item">
-                                <span>Current Session</span>
-                                <button id="logout-btn" class="btn-secondary danger">Sign Out</button>
-                            </div>
-                        </div>
+                            ...
+                        </div> -->
                         <div class="settings-section card glass">
                             <h3>Preferences</h3>
                             <div class="preference-item">

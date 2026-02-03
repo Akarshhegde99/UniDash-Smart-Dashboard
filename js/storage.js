@@ -17,9 +17,9 @@ const STORAGE_KEYS = {
 };
 
 export const Storage = {
-    // Current User Context
+    // Current User Context (Unified for local use)
     getActiveUserEmail() {
-        return localStorage.getItem(STORAGE_KEYS.SESSION);
+        return 'local_user';
     },
 
     getUserKey(suffix) {
