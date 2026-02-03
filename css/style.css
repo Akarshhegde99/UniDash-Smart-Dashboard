@@ -1227,6 +1227,20 @@ textarea:focus {
     .stats-row {
         grid-template-columns: 1fr;
     }
+
+    .tasks-layout-wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .tasks-side-panel {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .tasks-filter-bar {
+        flex-direction: column;
+    }
 }
 
 /* Notes View Specifics */
