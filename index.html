@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="UniDash - Your Universal Productivity Suite. Lift your productivity with one dash.">
+    <meta name="theme-color" content="#6366f1">
+    <title>UniDash | Smart Dashboard</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dark-theme">
+    <div id="loader" class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-card glass">
+            <div class="auth-header">
+                <i class="fas fa-rocket"></i>
+                <h1>UniDash</h1>
+                <p>Login to your orbital dashboard</p>
+            </div>
+
+            <div id="login-form-container">
+                <div class="entry-form">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-username" placeholder="name@example.com"
+                            style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: 12px; padding: 0.7rem 1.2rem; color: white; outline: none;">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••"
+                            style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: 12px; padding: 0.7rem 1.2rem; color: white; outline: none;">
+                    </div>
+                    <button id="auth-submit-btn" class="btn-primary"
+                        style="width: 100%; margin-top: 1rem;">Login</button>
+                </div>
+                <p class="auth-toggle-text">Don't have an account? <span id="switch-to-signup">Sign Up</span></p>
+            </div>
+
+            <div id="signup-form-container" class="hidden">
+                <div class="entry-form">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="signup-username" placeholder="name@example.com"
+                            style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: 12px; padding: 0.7rem 1.2rem; color: white; outline: none;">
+                    </div>
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signup-fullname" placeholder="John Doe">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" placeholder="Create password"
+                            style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: 12px; padding: 0.7rem 1.2rem; color: white; outline: none;">
+                    </div>
+                    <button id="signup-submit-btn" class="btn-primary" style="width: 100%; margin-top: 1rem;">Create
+                        Account</button>
+                </div>
+                <p class="auth-toggle-text">Already have an account? <span id="switch-to-login">Login</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container hidden" id="app-content">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>UniDash</span>
+                </div>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+
+            <div class="profile-section">
+                <div class="avatar-container">
+                    <img id="user-avatar" src="https://ui-avatars.com/api/?name=U&background=6366f1&color=fff"
+                        alt="Avatar">
+                    <label for="avatar-upload" class="avatar-edit">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" id="avatar-upload" accept="image/*" hidden>
+                </div>
+                <h3 id="user-name-display" class="user-name">...</h3>
+                <p class="user-status">Status: Syncing</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-view="dashboard">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#tasks" class="nav-link" data-view="tasks">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="#expenses" class="nav-link" data-view="expenses">
+                    <i class="fas fa-wallet"></i>
+                    <span>Expenses</span>
+                </a>
+                <a href="#notes" class="nav-link" data-view="notes">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notes</span>
+                </a>
+                <a href="#weather" class="nav-link" data-view="weather">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="#settings" class="nav-link" data-view="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="theme-btn">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button id="mobile-menu-btn" class="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="greeting-section">
+                        <h1 id="greeting">Connecting...</h1>
+                        <p id="current-date">...</p>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <button id="logout-btn-global" class="btn-secondary logout-hide"
+                        style="margin-right: 1rem; padding: 0.6rem 1rem;">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                    <div class="clock-section">
+                        <div id="clock" class="digital-clock">00:00:00</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- View Containers -->
+            <div id="view-dashboard" class="view active">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stats-row">
+                        <div class="stat-card glass" id="stat-tasks">
+                            <i class="fas fa-list-check"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Pending Tasks</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass" id="stat-expenses">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">Rs. 0</span>
+                                <span class="stat-label">Monthly Spending</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass" id="stat-weather">
+                            <i class="fas fa-temperature-half"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">--°C</span>
+                                <span class="stat-label">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Dashboard Widgets -->
+                    <div class="widget-col">
+                        <div class="card glass dashboard-widget task-widget">
+                            <div class="card-header">
+                                <h2>Recent Tasks</h2>
+                                <button class="btn-icon add-task-btn"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="task-list-mini" id="mini-task-list">
+                                <!-- Tasks will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-col">
+                        <div class="card glass dashboard-widget notes-widget">
+                            <div class="card-header">
+                                <h2>Quick Note</h2>
+                            </div>
+                            <textarea id="quick-note" placeholder="Type something..."></textarea>
+                            <div class="note-footer">
+                                <span id="note-char-count">0 characters</span>
+                                <button id="save-note" class="btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-col">
+                        <div class="card glass dashboard-widget financial-insight">
+                            <div class="card-header">
+                                <h2>Finance Radar</h2>
+                            </div>
+                            <div class="radar-content">
+                                <div class="radar-item">
+                                    <span>Daily Budget</span>
+                                    <p>Rs. 500.00</p>
+                                </div>
+                                <div class="radar-status">
+                                    <i class="fas fa-circle-check"></i>
+                                    <span>On Track</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-tasks" class="view">
+                <div class="tasks-layout-wrapper">
+                    <!-- Left: Task Control & List -->
+                    <div class="tasks-main-panel card glass">
+                        <div class="view-header">
+                            <div class="header-titles">
+                                <h2>Task Command</h2>
+                                <p>Manage your daily objectives</p>
+                            </div>
+                            <button id="add-task-full" class="btn-primary"><i class="fas fa-plus"></i> New Task</button>
+                        </div>
+
+                        <div class="tasks-filter-bar">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="task-search" placeholder="Locate objective...">
+                            </div>
+                            <div class="filter-actions">
+                                <select id="task-filter">
+                                    <option value="all">All Orbitals</option>
+                                    <option value="pending">In Progress</option>
+                                    <option value="completed">Finalized</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="task-container">
+                            <div id="full-task-list" class="task-list">
+                                <!-- Tasks will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Task Stats/Summary -->
+                    <div class="tasks-side-panel card glass">
+                        <div class="panel-section">
+                            <h3>Focus Stats</h3>
+                            <div class="focus-metric">
+                                <span class="metric-label">Efficiency</span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-section suggestion-card">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>AI Insight</h4>
+                            <p>You're most productive between 10 AM and 12 PM. Try scheduling heavy tasks then.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-expenses" class="view">
+                <div class="card glass full-height">
+                    <div class="view-header">
+                        <h2>Expense Orbit</h2>
+                        <div class="header-actions">
+                            <button id="export-csv" class="btn-secondary">Export CSV</button>
+                            <button id="add-expense" class="btn-primary">New Entry</button>
+                        </div>
+                    </div>
+                    <div class="expense-dashboard">
+                        <div class="summary-cards">
+                            <div class="summary-card income">
+                                <span>Income</span>
+                                <p id="total-income">Rs. 0.00</p>
+                            </div>
+                            <div class="summary-card expenses">
+                                <span>Expenses</span>
+                                <p id="total-expenses">Rs. 0.00</p>
+                            </div>
+                            <div class="summary-card balance">
+                                <span>Balance</span>
+                                <p id="total-balance">Rs. 0.00</p>
+                            </div>
+                        </div>
+                        <div class="expense-list-container">
+                            <table class="expense-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expense-list-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional views placeholders -->
+            <div id="view-notes" class="view">
+                <div class="card glass full-height">
+                    <div class="view-header">
+                        <div class="header-titles">
+                            <h2>Notes Gravity</h2>
+                            <p>Capture your thoughts in orbit</p>
+                        </div>
+                        <button id="add-note-btn" class="btn-primary"><i class="fas fa-plus"></i> New Note</button>
+                    </div>
+                    <div class="notes-view-content">
+                        <div class="notes-filter-bar">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="note-search" placeholder="Search your thoughts...">
+                            </div>
+                        </div>
+                        <div id="notes-grid" class="notes-grid">
+                            <!-- Notes will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-weather" class="view">
+                <div class="card glass full-height">
+                    <div class="view-header">
+                        <div class="header-titles">
+                            <h2>Weather Pulse</h2>
+                            <p>Global climate telemetry</p>
+                        </div>
+
+                    </div>
+                    <div class="weather-detailed-content">
+                        <div id="weather-main-display" class="weather-main-display">
+                            <!-- Main weather info here -->
+                        </div>
+                        <div class="forecast-container">
+                            <h3>Next 3 Days</h3>
+                            <div id="forecast-grid" class="forecast-grid">
+                                <!-- Forecast cards here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-settings" class="view">
+                <div class="card glass full-height">
+                    <div class="view-header">
+                        <div class="header-titles">
+                            <h2>System Settings</h2>
+                            <p>Configure your UniDash experience</p>
+                        </div>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="settings-section card glass">
+                            <h3>User Profile</h3>
+                            <div class="settings-form">
+                                <div class="input-group">
+                                    <label>Display Name</label>
+                                    <input type="text" id="settings-username" placeholder="Enter name">
+                                </div>
+                                <button id="save-settings-profile" class="btn-primary">Update Profile</button>
+                            </div>
+                        </div>
+                        <div class="settings-section card glass">
+                            <h3>Session</h3>
+                            <div class="preference-item">
+                                <span>Current Session</span>
+                                <button id="logout-btn" class="btn-secondary danger">Sign Out</button>
+                            </div>
+                        </div>
+                        <div class="settings-section card glass">
+                            <h3>Preferences</h3>
+                            <div class="preference-item">
+                                <span>Theme Preference</span>
+                                <button id="settings-theme-toggle" class="btn-secondary">Switch Theme</button>
+                            </div>
+                            <div class="preference-item danger-zone">
+                                <span>Storage Cleanup</span>
+                                <button id="clear-all-data" class="btn-secondary danger">Clear All Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-container" class="modal-overlay hidden">
+        <div class="modal glass">
+            <div id="modal-body" class="modal-body">
+                <!-- Modal content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
