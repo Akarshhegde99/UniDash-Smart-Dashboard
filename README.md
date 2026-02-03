@@ -69,9 +69,6 @@ This project is a masterclass in Vanilla JS, covering:
 
 ## 📦 Deployment
 
-The project is ready for **GitHub Pages** or **Netlify**.
+The project is ready for **GitHub Pages**.
 - **GitHub Pages**: Push to the `main` branch and enable "GitHub Pages" in the repository settings.
-- **Netlify**: Drag and drop the folder into the Netlify dashboard.
-
----
-Created with ❤️ by UniDash Team
+- **Live Link**: https://akarshhegde99.github.io/UniDash-Smart-Dashboard/
